@@ -47,8 +47,6 @@ const TabsNavigator = () => {
   )
 }
 
-export default TabsNavigator
-
 const styles = StyleSheet.create({
   tabBarStyle: {
     height: 80,
@@ -66,3 +64,5 @@ const styles = StyleSheet.create({
     right: 0,
   },
 });
+
+export default TabsNavigator
