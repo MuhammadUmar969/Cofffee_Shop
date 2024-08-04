@@ -4,6 +4,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -76,8 +77,8 @@ const HomeScreen = () => {
         </Text>
 
         {/* Search Input */}
-        <View>
-          <TouchableOpacity>
+        <View style={styles.InputContainerComponent}>
+          <TouchableOpacity onPress={() => {}}>
             <CustomeIcon
               style={styles.InputIcon}
               name="search"
@@ -89,7 +90,50 @@ const HomeScreen = () => {
               }
             />
           </TouchableOpacity>
+          <TextInput
+            placeholder="Find Your Coffee..."
+            value={searchText}
+            onChangeText={text => setSearchText(text)}
+            placeholderTextColor={COLORS.primaryLightGreyHex}
+            style={styles.TextInputContainer}
+          />
         </View>
+
+        {/* Category Scroller */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.CategoryScrollViewStyle}>
+          {categories.map((data, index) => (
+            <View
+              key={index.toString()}
+              style={styles.CategoryScrollViewContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  setCategoryIndex({index: index, category: categories[index]});
+                  setSortedCoffee([
+                    ...getCoffeeList(categories[index], CoffeeList),
+                  ]);
+                }}
+                style={styles.CategoryScrollViewItem}>
+                <Text
+                  style={[
+                    styles.CategoryText,
+                    categoryIndex.index == index
+                      ? {color: COLORS.primaryOrangeHex}
+                      : {},
+                  ]}>
+                  {data}
+                </Text>
+                {categoryIndex.index == index ? (
+                  <View style={styles.ActiveCategory} />
+                ) : (
+                  <></>
+                )}
+              </TouchableOpacity>
+            </View>
+          ))}
+        </ScrollView>
       </ScrollView>
     </View>
   );
