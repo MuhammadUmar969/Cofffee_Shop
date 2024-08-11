@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -7,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import LinearGradient from 'react-native-linear-gradient';
 import {
   BORDERRADIUS,
   COLORS,
@@ -15,8 +16,6 @@ import {
   FONTSIZE,
   SPACING,
 } from '../theme/theme';
-import LinearGradient from 'react-native-linear-gradient';
-
 import BGIcon from './BGIcon';
 import CustomeIcon from './CustomeIcon';
 
@@ -72,21 +71,30 @@ const CoffeeCard: React.FC<CoffeeCardProps> = ({
         <Text style={styles.CardPriceCurrency}>
           $ <Text style={styles.CardPrice}>{price.price}</Text>
         </Text>
+        <TouchableOpacity
+          onPress={() => {
+            buttonPressHandler({
+              id,
+              index,
+              type,
+              roasted,
+              imagelink_square,
+              name,
+              special_ingredient,
+              prices: [{...price, quantity: 1}],
+            });
+          }}>
+          <BGIcon
+            color={COLORS.primaryWhiteHex}
+            name={'add'}
+            BGColor={COLORS.primaryOrangeHex}
+            size={FONTSIZE.size_10}
+          />
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-      onPress={() => {}}>
-        <BGIcon
-          color={COLORS.primaryWhiteHex}
-          name={'add'}
-          BGColor={COLORS.primaryOrangeHex}
-          size={FONTSIZE.size_10}
-        />
-      </TouchableOpacity>
     </LinearGradient>
   );
 };
-
-export default CoffeeCard;
 
 const styles = StyleSheet.create({
   CardLinearGradientContainer: {
@@ -144,3 +152,5 @@ const styles = StyleSheet.create({
     color: COLORS.primaryWhiteHex,
   },
 });
+
+export default CoffeeCard;
